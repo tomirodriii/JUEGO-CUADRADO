@@ -1,50 +1,51 @@
-let posX = 400;
-let posY = 0;
-let punto = 0;
-let size = 40;
-let speed = 5;
-let limit = 600;
+let SqR;
+let elli;
+let puntos = 0;
+let vidas = 5;
 
+function setup(){
+ createCanvas(900, 600);
+    SqR = createSprite(
+      400, 540, 50, 50);
+    SqR.shapeColor = color(0);
+    elli = createSprite(
+        random(0, width - 10),-10,40
+        
+    )
 
-function setup () {
-    createCanvas(800,600);
-
-}
-
-function draw () {
-
-// Creo el personaje
-    background(255);
-    fill(0);
-    square(posX, 500, 50);
-    
-// Creo los Enemigos
-
-fill(200,0,0);
-ell.ellipse(600,posY, size);
-  posY += speed;
-
-  if(posY > limit) {
-
-    posY = 0;
-
-  }
-
-
-// Creo el recuadro de puntos y vidas
-
+  
 
 }
 
-function keyPressed() {
+function draw(){
+    background(200);
+    elli.velocity.y = 10
+    textSize(25);
+    text("POINTS: " + puntos, 50, 50);
+    text("VIDAS: " + vidas, 50, 75);
+    if (keyIsDown(68) === true) {
+        SqR.position.x += 10
+      }
+      if (keyIsDown(65) === true) {
+        SqR.position.x -= 10
+      }
 
+      if(elli.position.y === height + 10){
+elli.position.y = -10
+elli.position.x = random(0, width - 10)
+      }
+      if (elli.overlap(SqR)) {
+        vidas -= 1;
+        elli.position.y = -10
+        elli.position.x = random(0, width - 10)
+      }
+      if (vidas == 0){
+        background(0)
+        elli.shapeColor(0)
+      }
 
-    if (keyCode === LEFT_ARROW) {
-        posX += 20;
-    } if (keyCode === RIGHT_ARROW) {
-        posX -= 20;
-    }
-
-
-
+      if(elli.position.y == height){
+puntos++
+      }
+drawSprites();
 }
